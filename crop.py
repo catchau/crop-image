@@ -21,21 +21,25 @@ y_end = 200
 
 
 def crop_image(x_start, y_start, x_end, y_end, count=1):
+    if y_start == img_size[1]:
+        return
+
     img_croped = img.crop((x_start, y_start, x_end, y_end))
     img_croped.save(f'img_{count}.jpg')
+    saved = True
 
-    # get next tile
-    x_start = x_start + 200
-    x_end = x_end + 200
-    if x_end > img_size[0]:
+    if x_end == img_size[0]:
         x_start = 0
         x_end = 200
         y_start = y_start + 200
         y_end = y_end + 200
+        saved = False
 
-    if count == total_crop:
-        return
-    
+    if saved:
+        # get next tile
+        x_start = x_start + 200
+        x_end = x_end + 200 if x_end + 200 < img_size[0] else img_size[0]
+
     count = count + 1
     return crop_image(x_start, y_start, x_end, y_end, count)
 

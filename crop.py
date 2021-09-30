@@ -1,3 +1,5 @@
+import ipdb
+import os
 import sys
 from PIL import Image
 
@@ -6,8 +8,9 @@ if len(sys.argv) != 2:
     sys.exit()
 
 img_name = sys.argv[1]
-
 img = Image.open(img_name)
+image_path = os.path.join(os.getcwd(), f'{img.filename}_croped')
+os.makedirs(image_path, exist_ok=True)
 
 total_crop = (img.size[0] * img.size[1]) / (200*200)
 img_size = img.size
@@ -24,7 +27,7 @@ def crop_image(x_start, y_start, x_end, y_end, count=1):
         return
 
     img_croped = img.crop((x_start, y_start, x_end, y_end))
-    img_croped.save(f'img_{count}.jpg')
+    img_croped.save(f'{image_path}/img_{count}.jpg')
     saved = True
 
     if x_end == img_size[0]:

@@ -11,7 +11,6 @@ img = Image.open(img_name)
 
 total_crop = (img.size[0] * img.size[1]) / (200*200)
 img_size = img.size
-# (x1,y1) - (x2,y2)
 
 # first tile
 x_start = 0
@@ -31,8 +30,8 @@ def crop_image(x_start, y_start, x_end, y_end, count=1):
     if x_end == img_size[0]:
         x_start = 0
         x_end = 200
-        y_start = y_start + 200
-        y_end = y_end + 200
+        y_start = y_start + 200 if y_start + 200 < img_size[1] else img_size[1]
+        y_end = y_end + 200 if y_end + 200 < img_size[1] else img_size[1]
         saved = False
 
     if saved:

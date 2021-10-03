@@ -1,4 +1,3 @@
-import ipdb
 import os
 import sys
 from PIL import Image
